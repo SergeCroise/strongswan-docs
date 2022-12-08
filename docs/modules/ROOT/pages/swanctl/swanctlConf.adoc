@@ -19,19 +19,15 @@
 The `*swanctl.conf*` file provides connections, secrets and IP address pools for
 the xref:swanctl/swanctl.adoc[`*swanctl --load-**`] commands.
 
-The file uses a xref:config/strongswanConf.adoc[`*strongswan.conf*`]-style syntax
-(referencing sections, since version 5.7.0, and including other files is supported
-as well) and is located in the xref:swanctl/swanctlDir.adoc[`*swanctl*`]
+The file uses a xref:config/strongswanConf.adoc#_syntax[`*strongswan.conf*`]-style
+syntax (referencing sections, since version 5.7.0, and including other files is
+supported as well) and is located in the xref:swanctl/swanctlDir.adoc[`*swanctl*`]
 configuration directory, usually `*/etc/swanctl*`.
 
 Many examples can be found in our testing environment, eg. as used by the
 {TESTS}/ikev2[IKEv2 scenarios].
 
-== Time Formats
-
-For all options that define a time, the time is specified in seconds. The `*s*`,
-`*m*`, `*h*` and `*d*` suffixes explicitly define the units for seconds, minutes,
-hours and days, respectively.
+include::partial$config/number_formats.adoc[]
 
 == Keys
 
@@ -268,11 +264,21 @@ include::partial$config/swanctl-rekey-ike.adoc[]
 
 |<conn>.if_id_in           |`0`
 |Since version 5.8.0. XFRM interface ID set on inbound policies/SA. Can be
- overridden by child config, see there for details
+ overridden by child config, see there for details.
+ +
+ The special value `*%unique*` allocates a unique interface ID per IKE_SA,
+ which is inherited by all its CHILD_SAs (unless overriden there), beyond
+ that the value `*%unique-dir*` assigns a different unique interface ID for
+ each direction (`*in/out*`)
 
 |<conn>.if_id_out          |`0`
 |Since version 5.8.0. XFRM interface ID set on outbound policies/SA. Can be
- overridden by child config, see there for details
+ overridden by child config, see there for details.
+ +
+ The special value `*%unique*` allocates a unique interface ID per IKE_SA,
+ which is inherited by all its CHILD_SAs (unless overriden there), beyond
+ that the value `*%unique-dir*` assigns a different unique interface ID for
+ each direction (`*in/out*`)
 
 |<conn>.mediation          |`no`
 |Since version 5.5.2. Whether this connection is a mediation connection, i.e.
